@@ -20,12 +20,8 @@ if (!MONGO_URI) {
   process.exit(1); // Stop the server if no connection string
 }
 
-// ✅ MongoDB Connection with proper options
-mongoose
-  .connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+// ✅ MongoDB Connection without deprecated options
+mongoose.connect(MONGO_URI)
   .then(() => console.log("✅ MongoDB Connected Successfully"))
   .catch((err) => {
     console.error("❌ MongoDB Connection Failed:", err.message);
