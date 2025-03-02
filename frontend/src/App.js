@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import axios from "axios";
 import "./App.css"; // Make sure to create and link this CSS file
 
-const socket = io("http://localhost:5000");
+const socket = io("https://coolie-booking-service.onrender.com");
 
 const App = () => {
   const [bookings, setBookings] = useState([]);
@@ -17,7 +17,7 @@ const App = () => {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/bookings").then((res) => setBookings(res.data));
+    axios.get("https://coolie-booking-service.onrender.com/api/bookings").then((res) => setBookings(res.data));
     
     socket.on("updateBookings", (newBooking) => {
       setBookings((prev) => [...prev, newBooking]);
@@ -32,7 +32,7 @@ const App = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await axios.post("http://localhost:5000/api/bookings", form);
+    const res = await axios.post("https://coolie-booking-service.onrender.com/api/bookings", form);
     socket.emit("newBooking", res.data);
     setForm({ passengerName: "", trainNumber: "", coachNumber: "", station: "", minutesBeforeArrival: "", cooliesNeeded: "" });
   };
