@@ -1,0 +1,128 @@
+.App {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+  background-image: url("https://i.guim.co.uk/img/media/60a1abe01ee10ef057576789bd5d4aae7aa1cbff/0_39_5040_3025/master/5040.jpg?width=1200&quality=85&auto=format&fit=max&s=80dc7c6f1bf924f09f0f0f03cccea28c");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: white;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+/* Left Section - Booking Form */
+.booking-form {
+  width: 30%;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.3);
+}
+
+.booking-form h1 {
+  color: #ffcc00;
+  text-align: center;
+}
+
+.booking-form input, .booking-form select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.9);
+  color: black;
+  font-size: 16px;
+  outline: none;
+}
+
+.booking-form button {
+  width: 100%;
+  padding: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  background: #ffcc00;
+  color: black;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.booking-form button:hover {
+  background: #ff9900;
+}
+
+/* Center Section - Image */
+.center-image {
+  width: 35%;
+}
+
+.center-image img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* Right Section - Active Bookings */
+.active-bookings {
+  width: 30%;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.3);
+}
+
+.active-bookings h2 {
+  color: #ffcc00;
+  text-align: center;
+}
+
+.booking-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.booking-table th, .booking-table td {
+  padding: 10px;
+  border: 1px solid #ffcc00;
+  text-align: center;
+}
+
+.booking-table th {
+  background: #ffcc00;
+  color: black;
+}
+
+.booking-table td {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .App {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .booking-form, .active-bookings {
+    width: 80%;
+    margin-bottom: 20px;
+  }
+
+  .center-image {
+    width: 80%;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .booking-form, .active-bookings {
+    width: 90%;
+  }
+
+  .center-image {
+    width: 100%;
+  }
+}
