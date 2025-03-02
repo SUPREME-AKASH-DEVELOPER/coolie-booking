@@ -1,72 +1,79 @@
-# Coolie Booking Service
+# Coolie Booking Service  
 
-🚆 A web-based coolie booking service that allows passengers to book coolies at train stations conveniently.
+🚆 A web-based coolie booking service that allows passengers to book coolies at train stations conveniently.  
 
-## 🛠 Tech Stack
+## 🛠 Tech Stack  
+- **Frontend**: React.js, Tailwind CSS  
+- **Backend**: Node.js, Express.js  
+- **Database**: MongoDB  
+- **Real-time Updates**: Socket.io  
 
-- **Frontend:** React.js, Tailwind CSS
-- **Backend:** Node.js, Express.js
-- **Database:** MongoDB
-- **Real-time Updates:** Socket.io
+## 🌍 Live Demo  
+- **Frontend**: [Coolie Booking Service](https://cooliebookingservice.netlify.app/)  
+- **Backend**: [Coolie Booking API](https://coolie-booking-service.onrender.com)  
 
-## 📂 Project Structure
+## 📂 Project Structure  
 ```
 /coolie-booking
 │-- /frontend   # React.js frontend
 │-- /backend    # Node.js backend
 │-- README.md   # Documentation
-```
+```  
 
-## 🚀 Getting Started
+## 🚀 Getting Started  
 
-### 1️⃣ Clone the Repository
-```sh
-git clone https://github.com/SUPREME-AKASH-DEVELOPER/coolie-booking.git
-cd coolie-booking
-```
+### 1️⃣ Clone the Repository  
+```bash
+git clone https://github.com/SUPREME-AKASH-DEVELOPER/coolie-booking.git  
+cd coolie-booking  
+```  
 
-### 2️⃣ Install Dependencies
-#### For Backend
-```sh
-cd backend
-npm install
-```
-#### For Frontend
-```sh
-cd ../frontend
-npm install
-```
+### 2️⃣ Install Dependencies  
 
-### 3️⃣ Start the Application
-#### Run Backend Server
-```sh
-cd backend
-node server.js
-```
-#### Run Frontend
-```sh
-cd frontend
-npm start
-```
+#### Backend  
+```bash
+cd backend  
+npm install  
+```  
 
-## 🌟 Features
-- 🚀 Book a coolie online
-- ⚡ Real-time booking updates
-- 📋 View active bookings
-- 🔒 Secure data handling
+#### Frontend  
+```bash
+cd ../frontend  
+npm install  
+```  
 
-## 🤝 Contributing
-Pull requests are welcome! Please follow these steps:
-1. Fork the repository
-2. Create a new branch (`git checkout -b feature-branch`)
-3. Commit changes (`git commit -m 'Added new feature'`)
-4. Push to your fork (`git push origin feature-branch`)
+### 3️⃣ Start the Application  
+
+#### Run Backend Server  
+```bash
+cd backend  
+node server.js  
+```  
+
+#### Run Frontend  
+```bash
+cd frontend  
+npm start  
+```  
+
+## 🌟 Features  
+✅ Book a coolie online  
+⚡ Real-time booking updates  
+📋 View active bookings  
+🔒 Secure data handling  
+
+## 🤝 Contributing  
+Pull requests are welcome! Please follow these steps:  
+1. Fork the repository  
+2. Create a new branch (`git checkout -b feature-branch`)  
+3. Commit changes (`git commit -m 'Added new feature'`)  
+4. Push to your fork (`git push origin feature-branch`)  
 5. Create a pull request
 
-## 📜 License
-This project is licensed under the MIT License.
+## Picture:
+![Screenshot 2025-03-02 143216](https://github.com/user-attachments/assets/9a4e7192-a8ff-4350-a272-d75cf9bf75e6)
 
----
+## 📜 License  
+This project is licensed under the MIT License.  
 
-Happy Coding! 🚀
-
+Happy Coding! 🚀  
