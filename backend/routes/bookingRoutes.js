@@ -2,15 +2,15 @@ const express = require("express");
 const Booking = require("../models/Booking");
 const router = express.Router();
 
-// Function to delete expired bookings (10 minutes after "minutesBeforeArrival")
+// Function to delete expired bookings (10 minutes after "minutes before arrival")
 const deleteExpiredBookings = async () => {
   const currentTime = new Date();
-  
+
   await Booking.deleteMany({
     $expr: {
       $lt: [
-        { $subtract: [currentTime, { $multiply: ["$minutesBeforeArrival", 60000] }] }, // Convert minutes to milliseconds
-        10 * 60 * 1000 // 10 minutes in milliseconds
+        { $add: ["$createdAt", { $multiply: ["$minutesBeforeArrival", 60000] }, 10 * 60000] }, // CreatedAt + minutesBeforeArrival + 10 minutes
+        currentTime
       ]
     }
   });
@@ -37,6 +37,16 @@ router.get("/", async (req, res) => {
   try {
     const bookings = await Booking.find({ status: "Pending" });
     res.json(bookings);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// 📌 Clear All Bookings Manually
+router.delete("/clear", async (req, res) => {
+  try {
+    await Booking.deleteMany({});
+    res.json({ message: "All active bookings cleared!" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
