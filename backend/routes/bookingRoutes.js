@@ -2,40 +2,44 @@ const express = require("express");
 const Booking = require("../models/Booking");
 const router = express.Router();
 
-// Function to delete a booking after 10 minutes of arrival time
-const scheduleDeletion = async (booking) => {
-    const deleteTime = booking.createdAt.getTime() + (booking.minutesBeforeArrival + 10) * 60 * 1000;
-
-    const delay = deleteTime - Date.now(); // Calculate remaining time
-
-    if (delay > 0) {
-        setTimeout(async () => {
-            await Booking.findByIdAndDelete(booking._id);
-            console.log(`Booking ${booking._id} deleted successfully.`);
-        }, delay);
+// Function to delete expired bookings (10 minutes after "minutesBeforeArrival")
+const deleteExpiredBookings = async () => {
+  const currentTime = new Date();
+  
+  await Booking.deleteMany({
+    $expr: {
+      $lt: [
+        { $subtract: [currentTime, { $multiply: ["$minutesBeforeArrival", 60000] }] }, // Convert minutes to milliseconds
+        10 * 60 * 1000 // 10 minutes in milliseconds
+      ]
     }
+  });
+
+  console.log("Expired bookings deleted successfully.");
 };
 
-// Create Booking
+// Run cleanup every 10 minutes
+setInterval(deleteExpiredBookings, 10 * 60 * 1000);
+
+// 📌 Create Booking
 router.post("/", async (req, res) => {
-    try {
-        const newBooking = new Booking(req.body);
-        await newBooking.save();
-        scheduleDeletion(newBooking); // Schedule automatic deletion
-        res.status(201).json(newBooking);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
+  try {
+    const newBooking = new Booking(req.body);
+    await newBooking.save();
+    res.status(201).json(newBooking);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-// Get Active Bookings
+// 📌 Get Active Bookings
 router.get("/", async (req, res) => {
-    try {
-        const bookings = await Booking.find();
-        res.json(bookings);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
+  try {
+    const bookings = await Booking.find({ status: "Pending" });
+    res.json(bookings);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 module.exports = router;
