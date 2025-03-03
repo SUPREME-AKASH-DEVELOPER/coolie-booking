@@ -2,32 +2,41 @@ const express = require("express");
 const Booking = require("../models/Booking");
 const router = express.Router();
 
-// ✅ Auto-delete bookings older than 10 minutes
-setInterval(async () => {
-  const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000);
-  await Booking.deleteMany({ createdAt: { $lt: tenMinutesAgo } });
-  console.log("🗑️ Old bookings cleared.");
-}, 60 * 1000); // Runs every 1 minute
+// Function to clear expired bookings (10 min before train arrival)
+const clearExpiredBookings = async () => {
+    try {
+        const now = new Date();
+        await Booking.deleteMany({ 
+            minutesBeforeArrival: { $lte: 10 } // Delete bookings where time is <= 10 minutes
+        });
+        console.log("Expired bookings deleted successfully.");
+    } catch (err) {
+        console.error("Error deleting expired bookings:", err);
+    }
+};
 
-// ✅ Create Booking
+// Run the cleanup function every 1 minute
+setInterval(clearExpiredBookings, 60 * 1000);
+
+// Create Booking
 router.post("/", async (req, res) => {
-  try {
-    const newBooking = new Booking(req.body);
-    await newBooking.save();
-    res.status(201).json(newBooking);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    try {
+        const newBooking = new Booking(req.body);
+        await newBooking.save();
+        res.status(201).json(newBooking);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
-// ✅ Get All Bookings
+// Get Active Bookings
 router.get("/", async (req, res) => {
-  try {
-    const bookings = await Booking.find();
-    res.json(bookings);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    try {
+        const bookings = await Booking.find();
+        res.json(bookings);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 module.exports = router;
