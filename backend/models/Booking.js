@@ -8,6 +8,6 @@ const BookingSchema = new mongoose.Schema({
   minutesBeforeArrival: Number,
   cooliesNeeded: Number,
   status: { type: String, default: "Pending" },
-});
+}, { timestamps: true }); // ✅ Adds createdAt field
 
 module.exports = mongoose.model("Booking", BookingSchema);
