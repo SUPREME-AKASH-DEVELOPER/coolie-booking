@@ -42,8 +42,14 @@ router.get("/", async (req, res) => {
   }
 });
 
-// 📌 Clear All Bookings Manually
+// 📌 Clear All Bookings Manually (With Authentication)
 router.delete("/clear", async (req, res) => {
+  const { username, password } = req.headers;
+
+  if (username !== "admin" || password !== "admin2025") {
+    return res.status(403).json({ error: "Unauthorized" });
+  }
+
   try {
     await Booking.deleteMany({});
     res.json({ message: "All active bookings cleared!" });
