@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import axios from "axios";
-import "./App.css"; // Make sure to create and link this CSS file
+import "./App.css"; // Ensure this CSS file exists
 
 const socket = io("https://coolie-booking-service.onrender.com");
 
@@ -44,11 +44,15 @@ const App = () => {
     if (username === "admin" && password === "admin2025") {
       try {
         await axios.delete("https://coolie-booking-service.onrender.com/api/bookings/clear", {
-          auth: { username, password }
+          headers: {
+            "x-username": username,
+            "x-password": password
+          }
         });
         alert("All active bookings cleared!");
         setBookings([]);
       } catch (error) {
+        console.error("Error:", error);
         alert("Failed to clear bookings. Please try again.");
       }
     } else {
