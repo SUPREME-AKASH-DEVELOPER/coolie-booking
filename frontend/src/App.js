@@ -32,9 +32,15 @@ const App = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await axios.post("https://coolie-booking-service.onrender.com/api/bookings", form);
-    socket.emit("newBooking", res.data);
-    setForm({ passengerName: "", trainNumber: "", coachNumber: "", station: "", minutesBeforeArrival: "", cooliesNeeded: "" });
+    try {
+      const res = await axios.post("https://coolie-booking-service.onrender.com/api/bookings", form);
+      socket.emit("newBooking", res.data);
+      setBookings((prev) => [...prev, res.data]);
+      setForm({ passengerName: "", trainNumber: "", coachNumber: "", station: "", minutesBeforeArrival: "", cooliesNeeded: "" });
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Failed to book coolie. Please try again.");
+    }
   };
 
   const handleClearBookings = async () => {
@@ -46,11 +52,11 @@ const App = () => {
         await axios.delete("https://coolie-booking-service.onrender.com/api/bookings/clear", {
           headers: {
             "x-username": username,
-            "x-password": password
-          }
+            "x-password": password,
+          },
         });
         alert("All active bookings cleared!");
-        setBookings([]);
+        setBookings([]); // Clear UI after deletion
       } catch (error) {
         console.error("Error:", error);
         alert("Failed to clear bookings. Please try again.");
@@ -87,6 +93,9 @@ const App = () => {
                   <th>Name</th>
                   <th>Train No.</th>
                   <th>Coach No.</th>
+                  <th>Station</th> {/* New Column */}
+                  <th>Minutes Before Arrival</th> {/* New Column */}
+                  <th>Coolies Needed</th> {/* New Column */}
                 </tr>
               </thead>
               <tbody>
@@ -95,6 +104,9 @@ const App = () => {
                     <td>{b.passengerName}</td>
                     <td>{b.trainNumber}</td>
                     <td>{b.coachNumber}</td>
+                    <td>{b.station}</td> {/* New Data */}
+                    <td>{b.minutesBeforeArrival}</td> {/* New Data */}
+                    <td>{b.cooliesNeeded}</td> {/* New Data */}
                   </tr>
                 ))}
               </tbody>
