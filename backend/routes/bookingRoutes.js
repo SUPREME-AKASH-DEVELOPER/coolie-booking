@@ -44,7 +44,8 @@ router.get("/", async (req, res) => {
 
 // 📌 Clear All Bookings Manually (With Authentication)
 router.delete("/clear", async (req, res) => {
-  const { username, password } = req.headers;
+  const username = req.headers["x-username"];
+  const password = req.headers["x-password"];
 
   if (username !== "admin" || password !== "admin2025") {
     return res.status(403).json({ error: "Unauthorized" });
